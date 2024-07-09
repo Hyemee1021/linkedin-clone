@@ -9,6 +9,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import me_photo from "./assets/me_photo.png";
 const Header = () => {
   return (
     <div className="header">
@@ -26,6 +27,7 @@ const Header = () => {
         <HeaderOption title="Jobs" Icon={BusinessCenterIcon} />
         <HeaderOption title="Messaging" Icon={ChatIcon} />
         <HeaderOption title="Notifucations" Icon={NotificationsActiveIcon} />
+        <HeaderOption title="Me" avatar={me_photo} />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__left">
-        <img src={linkedin} />
+        <img src={linkedin} alt="profile" />
 
         <div className="header__search">
           <SearchIcon />

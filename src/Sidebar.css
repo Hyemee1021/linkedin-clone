@@ -25,7 +25,8 @@
 .sidebar__top {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
+  justify-content: center;
   border: 1px solid lightgray;
   border-bottom: 0;
   border-top-left-radius: 5px;

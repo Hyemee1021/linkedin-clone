@@ -3,6 +3,9 @@ import "./Post.css";
 import { Avatar } from "@mui/material";
 import InputOption from "./InputOption";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CommentIcon from "@mui/icons-material/Comment";
+import ShareIcon from "@mui/icons-material/Share";
+import SendIcon from "@mui/icons-material/Send";
 const Post = ({ name, description, message, photoUrl }) => {
   return (
     <div className="post">
@@ -19,6 +22,9 @@ const Post = ({ name, description, message, photoUrl }) => {
       {/* 1:35:58 */}
       <div className="post__buttons">
         <InputOption Icon={ThumbUpIcon} title="Like" color="gray" />
+        <InputOption Icon={CommentIcon} title="Comment" color="gray" />
+        <InputOption Icon={ShareIcon} title="Share" color="gray" />
+        <InputOption Icon={SendIcon} title="Send" color="gray" />
       </div>
     </div>
   );

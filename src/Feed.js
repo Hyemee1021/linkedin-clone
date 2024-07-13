@@ -8,21 +8,21 @@ import "./Feed.css";
 import InputOption from "./InputOption";
 import Post from "./Post";
 import { db } from "./firebase";
-
 import {
   collection,
   addDoc,
   onSnapshot,
   serverTimestamp,
+  query,
+  orderBy,
 } from "firebase/firestore";
-
 const Feed = () => {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(db, "posts").orderBy("timestamp", "desc"),
+      query(collection(db, "posts"), orderBy("timestamp", "desc")),
       (snapshot) =>
         setPosts(
           snapshot.docs.map((doc) => ({

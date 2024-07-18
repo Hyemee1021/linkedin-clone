@@ -11,6 +11,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import me_photo from "./assets/me_photo.png";
 const Header = () => {
+  //2: 36
   return (
     <div className="header">
       <div className="header__left">
@@ -18,7 +19,7 @@ const Header = () => {
 
         <div className="header__search">
           <SearchIcon />
-          <input type="text" />
+          <input type="text" placeholder="Search" />
         </div>
       </div>
       <div className="header__right">

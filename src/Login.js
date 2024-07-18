@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { auth } from "./firebase";
+
 import { login } from "./features/userSlice";
 import linkedinLogo from "./assets/linkedinLogo.png";
 import { useDispatch } from "react-redux";
@@ -20,14 +20,24 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const register = () => {
+    const auth = getAuth();
     if (!name) {
       return alert("Please enter a full name");
     }
 
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
         const user = userAuth.user;
+
+        dispatch(
+          login({
+            email: user.email,
+            uid: user.uid,
+            displayName: name,
+            photoUrl: profilePic,
+          })
+        );
+
         alert("Account is created successfully.");
         setEmail("");
         setName("");
@@ -36,17 +46,20 @@ export const Login = () => {
 
       .catch((error) => alert(error.message));
   };
-  const loginToApp = (e) => {
-    e.preventDefault();
 
+  const loginToApp = (e) => {
     const auth = getAuth();
+    e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
         const user = userAuth.user;
         dispatch(
           login({
-            email: userAuth.user.email,
+            email: user.email,
+            uid: user.uid,
+            displayName: user.displayName,
+            profileUrl: user.photoURL,
           })
         );
         alert(" You are suceessfully logged in.");

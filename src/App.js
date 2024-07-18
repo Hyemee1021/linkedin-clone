@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, logout, login } from "./features/userSlice";
-import { onAuthStateChanged, getAuth } from "firebase";
+import { onAuthStateChanged, auth } from "./firebase";
 import { Login } from "./Login";
 
 function App() {
@@ -14,23 +14,24 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const auth = getAuth();
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        const uid = user.uid;
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
         dispatch(
           login({
-            email: user.email,
-            uid: user.uid,
-            displayName: user.displayName,
-            photoUrl: user.photoURL,
+            email: userAuth.email,
+            uid: userAuth.uid,
+            displayName: userAuth.displayName,
+            photoUrl: userAuth.photoURL,
           })
         );
       } else {
         dispatch(logout());
       }
     });
-  });
+
+    return () => unsubscribe(); // Cleanup listener on component unmount
+  }, [dispatch]); // Add dependencies
+
   return (
     //from here down html
     //{it becomes Javascript}

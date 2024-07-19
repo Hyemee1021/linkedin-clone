@@ -11,8 +11,6 @@ import {
 } from "firebase/auth";
 
 export const Login = () => {
-  //2:31
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");

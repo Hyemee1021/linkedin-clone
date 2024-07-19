@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import "./Login.css";
 
 import { login } from "./features/userSlice";
@@ -10,10 +11,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
+
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [profilePic, setProfilePic] = useState("");
   const dispatch = useDispatch();
 
@@ -22,7 +27,7 @@ export const Login = () => {
     if (!name) {
       return alert("Please enter a full name");
     }
-
+    setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
         const user = userAuth.user;
@@ -40,6 +45,7 @@ export const Login = () => {
         setEmail("");
         setName("");
         setPassword("");
+        setLoading(false);
       })
 
       .catch((error) => alert(error.message));
@@ -51,6 +57,7 @@ export const Login = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
+        setLoading(true);
         const user = userAuth.user;
         dispatch(
           login({
@@ -60,7 +67,9 @@ export const Login = () => {
             profileUrl: user.photoURL,
           })
         );
+
         alert(" You are suceessfully logged in.");
+        setLoading(false);
       })
       .catch((error) => {
         alert(error.message);
@@ -69,7 +78,7 @@ export const Login = () => {
   return (
     <div className="login">
       <h1>You are not logged in.</h1>
-      <img src={linkedinLogo} />
+      <img src={linkedinLogo} alt="logo" />
       <form action="">
         <input
           placeholder="Full name (required if regitering)"
@@ -96,15 +105,27 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" onClick={loginToApp}>
-          Sign In
-        </button>
+        {loading ? (
+          <LoadingButton loading variant="outlined">
+            <span>Submit</span>
+          </LoadingButton>
+        ) : (
+          <Button variant="contained" onClick={loginToApp}>
+            <span>Sign In</span>
+          </Button>
+        )}
       </form>
       <p>
         Not a member?{" "}
-        <span className="login__register" onClick={register}>
-          Register Now
-        </span>
+        {loading ? (
+          <LoadingButton loading variant="outlined">
+            <span></span>
+          </LoadingButton>
+        ) : (
+          <Button variant="text" onClick={register}>
+            <span>Register Now</span>
+          </Button>
+        )}
       </p>
     </div>
   );

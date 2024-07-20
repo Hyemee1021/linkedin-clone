@@ -19,7 +19,7 @@ const Post = ({ name, description, message, photoUrl }) => {
       <div className="post__body">
         <p> {message} </p>
       </div>
-      {/* 1:35:58 */}
+
       <div className="post__buttons">
         <InputOption Icon={ThumbUpIcon} title="Like" color="gray" />
         <InputOption Icon={CommentIcon} title="Comment" color="gray" />

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
 const Sidebar = () => {
   const user = useSelector(selectUser);
+
   const recentItem = (topic) => (
     <div className="sidebar__recentItem">
       <span className="sidebar__hash">#</span>
@@ -19,7 +20,7 @@ const Sidebar = () => {
         {user.phtoUrl ? (
           <Avatar className="sidebar__avatar" src={user.phtoUrl} />
         ) : (
-          <Avatar className="sidebar__avatar">{user.email[0]}</Avatar>
+          <Avatar className="sidebar__avatar">{user.displayName}</Avatar>
         )}
 
         <h2>{user.displayName}</h2>

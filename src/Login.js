@@ -24,9 +24,9 @@ export const Login = () => {
 
   const register = () => {
     const auth = getAuth();
-    if (!name) {
-      return alert("Please enter a full name");
-    }
+    // if (!name) {
+    //   return alert("Please enter a full name");
+    // }
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userAuth) => {
@@ -83,6 +83,7 @@ export const Login = () => {
         <input
           placeholder="Full name (required if regitering)"
           type="text"
+          required
           value={name}
           onChange={(e) => setName(e.target.value)}
         />

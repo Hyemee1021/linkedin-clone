@@ -18,11 +18,12 @@ import {
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
+import FlipMove from "react-flip-move";
 const Feed = () => {
   const user = useSelector(selectUser);
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
-
+  console.log(selectUser);
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts"), orderBy("timestamp", "desc")),
@@ -87,16 +88,20 @@ const Feed = () => {
       </div>
 
       {/* post */}
-      {posts &&
-        posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            message={message}
-            photoUrl={photoUrl}
-          />
-        ))}
+      <FlipMove>
+        {posts &&
+          posts.map(
+            ({ id, data: { name, description, message, photoUrl } }) => (
+              <Post
+                key={id}
+                name={name}
+                description={description}
+                message={message}
+                photoUrl={photoUrl}
+              />
+            )
+          )}
+      </FlipMove>
     </div>
   );
 };
